@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 
 MYSQL_HOST=$(/native/usr/sbin/mdata-get mysql_host)
 MYSQL_USER=$(/native/usr/sbin/mdata-get mysql_user)
