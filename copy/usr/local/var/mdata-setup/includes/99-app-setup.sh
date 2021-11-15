@@ -92,7 +92,7 @@ systemctl start mailtrain
 systemctl enable mailtrain
 
 echo "* Cleanup"
-rm -rf /usr/local/tmp/
+rm -rf /usr/local/var/tmp
 mdata-delete mail_smarthost || true
 mdata-delete mail_auth_user || true
 mdata-delete mail_auth_pass || true
