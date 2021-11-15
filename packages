@@ -1,0 +1,15 @@
+net-tools
+nginx
+libwww-perl
+curl
+screen
+build-essential
+imagemagick
+redis
+pwgen
+bzip2 
+wget
+git
+unzip
+git
+jq

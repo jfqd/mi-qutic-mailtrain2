@@ -1,0 +1,8 @@
+name="qutic-mailtrain2"
+organization="qutic development"
+brand="Instance"
+version="20210413.0"
+description="qutic mailtrain v2 image"
+homepage="https://github.com/jfqd/mi-qutic-mailtrain2"
+users="root admin"
+base="3cbac866-cf54-11eb-a281-573ef60b0155"
