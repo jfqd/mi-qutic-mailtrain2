@@ -76,7 +76,7 @@ chmod o-rwx server/config
 
 echo "* Install node modules"
 reinstallAllModules
-(cd client && npm run build)
+(cd client && npm run build || true)
 
 echo "* Start mailtrain service and dependencies"
 mv /usr/local/var/tmp/mailtrain_service /etc/systemd/system/mailtrain.service

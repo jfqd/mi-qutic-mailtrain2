@@ -4,6 +4,9 @@ libwww-perl
 curl
 screen
 build-essential
+gcc
+g++
+make
 imagemagick
 redis
 pwgen
