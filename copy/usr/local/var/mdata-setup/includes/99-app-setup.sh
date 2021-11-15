@@ -79,8 +79,12 @@ reinstallAllModules
 (cd client && npm run build || true)
 
 echo "* Start mailtrain service and dependencies"
-mv /usr/local/var/tmp/mailtrain_service /etc/systemd/system/mailtrain.service
+mv /usr/local/var/tmp/mailtrain_service /etc/systemd/system/mailtrain.service || true
+mv /usr/local/var/tmp/nginx_service /usr/lib/systemd/system/nginx.service || true
 systemctl daemon-reload
+
+systemctl restart redis-server
+systemctl enable nginx
 
 systemctl start redis-server
 systemctl enable redis-server

@@ -20,9 +20,6 @@ ln -nfs /etc/nginx/sites-available/mailtrain /etc/nginx/sites-enabled/mailtrain
 mkdir -p /etc/nginx/ssl
 chmod 0500 /etc/nginx/ssl
 /usr/local/bin/ssl-selfsigned.sh -d /etc/nginx/ssl -f mailtrain
-mv /usr/local/var/tmp/nginx_service /usr/lib/systemd/system/nginx.service
-systemctl daemon-reload
-# service nginx restart
 
 echo "* Setup mongodb"
 curl -fsSL https://www.mongodb.org/static/pgp/server-4.2.asc | apt-key add - || true
