@@ -71,19 +71,19 @@ mysql:
   password: "${MYSQL_PWD}"
 EOT
 
-chown -R mailtrain:mailtrain .
-chmod o-rwx server/config
-
 echo "* Install node modules"
 reinstallAllModules
 (cd client && npm run build || true)
 
+chown -R mailtrain:mailtrain .
+chmod o-rwx server/config
+
 echo "* Start mailtrain service and dependencies"
 mv /usr/local/var/tmp/mailtrain_service /etc/systemd/system/mailtrain.service || true
-mv /usr/local/var/tmp/nginx_service /usr/lib/systemd/system/nginx.service || true
+mv /usr/local/var/tmp/nginx_service /lib/systemd/system/nginx.service || true
 systemctl daemon-reload
 
-systemctl restart redis-server
+systemctl restart nginx
 systemctl enable nginx
 
 systemctl start redis-server
