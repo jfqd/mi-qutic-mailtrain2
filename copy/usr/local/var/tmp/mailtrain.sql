@@ -2031,7 +2031,7 @@ LOCK TABLES `users` WRITE;
 
 INSERT INTO `users` (`id`, `username`, `password`, `email`, `access_token`, `reset_token`, `reset_expire`, `created`, `namespace`, `name`, `role`)
 VALUES
-	(1,'admin','$2a$10$mzKU71G62evnGB2PvQA4k..Wf9jASk.c7a8zRMHh6qQVjYJ2r/g/K','admin@example.com',NULL,NULL,NULL,'2022-10-11 08:25:54',1,'Administrator','master');
+	(1,'admin','$2a$10$dkSRpbF4Pu28k7i1nWzESeFpKHS6qvS/xNGGRckg.uqvQ7E2WPuEy','admin@example.com',NULL,NULL,NULL,'2022-10-11 08:25:54',1,'Administrator','master');
 
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
