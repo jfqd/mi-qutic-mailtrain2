@@ -1,6 +1,6 @@
 {
   "name":         "qutic-mailtrain2",
-  "version":      "20210413.0",
+  "version":      "20210413.1",
   "description":  "qutic mailtrain v2 image",
   "organization": "qutic development",
   "brand":        "Instance",
@@ -24,6 +24,7 @@
     "zabbix_pski":           {"type": "text", "description": "zabbix PSKIdentity"},
     "zabbix_psk":            {"type": "text", "description": "zabbix PSK"},
     "vfstab":                {"type": "text", "description": "nfs mountpoint for vfstab-file"},
+    "mailtrain_host":        {"type": "text", "description": "mailtrain host"},
     "mysql_host":            {"type": "text", "description": "mysql host"},
     "mysql_user":            {"type": "text", "description": "mysql user"},
     "mysql_db":              {"type": "text", "description": "mysql database"},
