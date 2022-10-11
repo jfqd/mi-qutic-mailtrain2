@@ -1,0 +1,30 @@
+#!/bin/bash
+
+function doForAllModules {
+  # Install required node packages
+  for idx in client shared server zone-mta mvis/client mvis/server mvis/test-embed mvis/ivis-core/client mvis/ivis-core/server mvis/ivis-core/shared mvis/ivis-core/embedding; do
+    if [ -d $idx ]; then
+      ($1 $idx)
+    fi
+  done
+}
+
+function reinstallModules {
+  local idx=$1
+  echo Reinstalling modules in $idx
+  cd $idx && rm -rf node_modules && npm install
+}
+
+function reinstallAllModules {
+  doForAllModules reinstallModules
+}
+
+cd /var/www/mailtrain
+
+echo "* Fix git usage"
+git config --global url."https://".insteadOf git://
+git config url."https://".insteadOf git://
+
+echo "* Install node modules and build client"
+reinstallAllModules
+(cd client && npm run build || true)

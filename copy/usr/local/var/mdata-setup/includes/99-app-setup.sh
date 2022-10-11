@@ -7,25 +7,6 @@ MYSQL_DB=$(/native/usr/sbin/mdata-get mysql_db)
 MYSQL_PWD=$(/native/usr/sbin/mdata-get mysql_password)
 SECRET=$(pwgen -1 128)
 
-function doForAllModules {
-  # Install required node packages
-  for idx in client shared server zone-mta mvis/client mvis/server mvis/test-embed mvis/ivis-core/client mvis/ivis-core/server mvis/ivis-core/shared mvis/ivis-core/embedding; do
-    if [ -d $idx ]; then
-      ($1 $idx)
-    fi
-  done
-}
-
-function reinstallModules {
-  local idx=$1
-  echo Reinstalling modules in $idx
-  cd $idx && rm -rf node_modules && npm install
-}
-
-function reinstallAllModules {
-  doForAllModules reinstallModules
-}
-
 echo "* Setup installation configuration"
 cd /var/www/mailtrain
 
@@ -85,10 +66,6 @@ EOT
 echo "* Import basic sql cause mailtrain has issues with its own sql-files (on mysql 8)"
 mysql -h "${MYSQL_HOST}" -u "${MYSQL_USER}" -p "${MYSQL_PWD}" < /usr/local/var/tmp/mailtrain.sql
 
-echo "* Fix git usage"
-git config --global url."https://".insteadOf git://
-git config url."https://".insteadOf git://
-
 echo "* Fix mailtrain layout"
 sed -i \
     -e "s|<a href=\"https://mailtrain.org\">Mailtrain.org</a>, <a href=\"mailto:info@mailtrain.org\">info@mailtrain.org</a>. <a href=\"https://github.com/Mailtrain-org/mailtrain\">{t('sourceOnGitHub')}</a>|Mailtrain.org, <a href=\"https://qutic.com/de/loesungen/mailtrain-hosting/\">Mailtrain-Hosting</a>|g" \
@@ -102,14 +79,18 @@ sed -i \
     -e "s#<mj-font name=\"Lato\" href=\"https://fonts.googleapis.com/css?family=Lato:400,700,400italic\" />##" \
     server/views/subscription/layout.mjml.hbs 
 
-echo "* Install node modules and build client"
-reinstallAllModules
-(cd client && npm run build || true)
-
 echo "* Fix utf8mb4 conversion"
 sed -i \
     -e "s|].table_name|].TABLE_NAME|" \
     server/setup/knex/migrations/20200824160149_convert_to_utf8mb4.js
+
+echo "* Fix git usage"
+git config --global url."https://".insteadOf git://
+git config url."https://".insteadOf git://
+
+echo "* Install node modules and build client"
+chown -R mailtrain:mailtrain .
+sudo -u mailtrain /usr/local/bin/mailtrain-init || true
 
 chown -R mailtrain:mailtrain .
 chmod o-rwx server/config
