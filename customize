@@ -69,7 +69,6 @@ echo "* Ensure bootstrap will run next time"
 rm -rf /var/lib/bootstrap
 
 echo "* Cleaning up."
-apt-get -y purge git make gcc g++ build-essential
 rm /var/log/syslog || true
 touch /var/log/syslog || true
 rm /root/customize

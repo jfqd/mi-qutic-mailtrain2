@@ -108,7 +108,7 @@ reinstallAllModules
 
 echo "* Fix utf8mb4 conversion"
 sed -i \
-    -e "s|tablas[i].table_name|tablas[i].TABLE_NAME|" \
+    -e "s|].table_name|].TABLE_NAME|" \
     server/setup/knex/migrations/20200824160149_convert_to_utf8mb4.js
 
 chown -R mailtrain:mailtrain .
@@ -133,7 +133,8 @@ systemctl start mailtrain
 systemctl enable mailtrain
 
 echo "* Cleanup"
-rm -rf /usr/local/var/tmp
+# apt-get -y purge git make gcc g++ build-essential
+# rm -rf /usr/local/var/tmp
 mdata-delete mail_smarthost || true
 mdata-delete mail_auth_user || true
 mdata-delete mail_auth_pass || true
