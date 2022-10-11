@@ -21,10 +21,13 @@ function reinstallAllModules {
 
 cd /var/www/mailtrain
 
-echo "* Fix git usage"
+echo "*** Fix git usage"
+HOME=/var/www/mailtrain
 git config --global url."https://".insteadOf git://
 git config url."https://".insteadOf git://
 
-echo "* Install node modules and build client"
+echo "*** Install node modules"
 reinstallAllModules
+
+echo "*** Build client"
 (cd client && npm run build || true)
