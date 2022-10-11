@@ -21,9 +21,18 @@ mkdir -p /etc/nginx/ssl
 chmod 0500 /etc/nginx/ssl
 /usr/local/bin/ssl-selfsigned.sh -d /etc/nginx/ssl -f mailtrain
 
-echo "* Setup mongodb"
-curl -fsSL https://www.mongodb.org/static/pgp/server-4.2.asc | apt-key add - || true
-echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.2 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-4.2.list
+echo "* Setup mongodb (only used my onemta)"
+if [[ $(grep -c "18.04" /etc/lsb-release) -ge 1 ]]; then
+  echo "*** Install mongodb on 18.04"
+  curl -fsSL https://www.mongodb.org/static/pgp/server-4.2.asc | apt-key add - || true
+  echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.2 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-4.2.list
+elif [[ $(grep -c "20.04" /etc/lsb-release) -ge 1 ]]; then
+  echo "*** Install mongodb on 20.04"
+  curl -fsSL https://www.mongodb.org/static/pgp/server-4.4.asc | apt-key add - || true
+  echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/4.4 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-4.4.list
+else
+  echo "*** ERROR: wrong ubuntu release, skip mongodb installation"
+fi
 
 apt-get -y update
 apt-get -y install mongodb-org
