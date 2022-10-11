@@ -8,11 +8,11 @@ gcc
 g++
 make
 imagemagick
+mysql-client
 redis
 pwgen
 bzip2 
 wget
 git
 unzip
-git
 jq

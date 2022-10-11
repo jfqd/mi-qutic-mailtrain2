@@ -4,7 +4,7 @@ MYSQL_HOST=$(/native/usr/sbin/mdata-get mysql_host)
 MYSQL_USER=$(/native/usr/sbin/mdata-get mysql_user)
 MYSQL_DB=$(/native/usr/sbin/mdata-get mysql_db)
 MYSQL_PWD=$(/native/usr/sbin/mdata-get mysql_password)
-SECRET=$(pwgen -1)
+SECRET=$(pwgen -1 128)
 
 function doForAllModules {
   # Install required node packages
@@ -60,7 +60,7 @@ queue:
   processes: 5
 EOT
     
-cat >> server/services/workers/reports/config/production.yaml <<EOT
+cat > server/services/workers/reports/config/production.yaml <<EOT
 log:
   level: warn
 
@@ -71,9 +71,16 @@ mysql:
   password: "${MYSQL_PWD}"
 EOT
 
+echo "* Fix git usage"
+git config --global url."https://".insteadOf git://
+git config url."https://".insteadOf git://
+
 echo "* Install node modules"
 reinstallAllModules
 (cd client && npm run build || true)
+
+echo "* Skip conversion"
+mv server/setup/knex/migrations/20200824160149_convert_to_utf8mb4.js server/setup/knex/migrations/20200824160149_convert_to_utf8mb4.js.bak
 
 chown -R mailtrain:mailtrain .
 chmod o-rwx server/config
