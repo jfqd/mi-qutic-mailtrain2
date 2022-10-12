@@ -207,11 +207,6 @@ sed -i \
     -e "s|].table_name|].TABLE_NAME|" \
     server/setup/knex/migrations/20200824160149_convert_to_utf8mb4.js
 
-echo "* Fix git usage"
-HOME=/root
-git config --global url."https://".insteadOf git://
-git config url."https://".insteadOf git://
-
 echo "* Install node modules and build client"
 chown -R mailtrain:mailtrain .
 sudo -u mailtrain /usr/local/bin/mailtrain-init || true
