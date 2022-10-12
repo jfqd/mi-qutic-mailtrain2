@@ -25,6 +25,7 @@
     "zabbix_psk":            {"type": "text", "description": "zabbix PSK"},
     "vfstab":                {"type": "text", "description": "nfs mountpoint for vfstab-file"},
     "mailtrain_host":        {"type": "text", "description": "mailtrain host"},
+    "mysql_init":            {"type": "text", "description": "set to true if you want to initialize the database"},
     "mysql_host":            {"type": "text", "description": "mysql host"},
     "mysql_user":            {"type": "text", "description": "mysql user"},
     "mysql_db":              {"type": "text", "description": "mysql database"},

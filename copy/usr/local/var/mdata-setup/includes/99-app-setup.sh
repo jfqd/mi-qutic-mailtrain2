@@ -1,6 +1,7 @@
 #!/bin/bash
 
 HOSTNAME=$(/native/usr/sbin/mdata-get mailtrain_host)
+MYSQL_INIT=$(/native/usr/sbin/mdata-get mysql_init)
 MYSQL_HOST=$(/native/usr/sbin/mdata-get mysql_host)
 MYSQL_USER=$(/native/usr/sbin/mdata-get mysql_user)
 MYSQL_DB=$(/native/usr/sbin/mdata-get mysql_db)
@@ -63,8 +64,20 @@ mysql:
   password: "${MYSQL_PWD}"
 EOT
 
-echo "* Import basic sql cause mailtrain has issues with its own sql-files (on mysql 8)"
-mysql -h "${MYSQL_HOST}" -u "${MYSQL_USER}" -p "${MYSQL_PWD}" < /usr/local/var/tmp/mailtrain.sql
+if [[ "${MYSQL_INIT}" = "true" ]]; then
+  echo "* Import basic sql cause mailtrain has issues with its own sql-files (on mysql 8)"
+  cat > /root/.my.cnf <<EOF
+[client]
+host = ${MYSQL_HOST}
+user = "${MYSQL_USER}"
+password = "${MYSQL_PWD}"
+EOF
+  chmod 0400 /root/.my.cnf
+
+  /usr/bin/mysql --database="${MYSQL_DB}" --defaults-file=/root/.my.cnf < /usr/local/var/tmp/mailtrain.sql
+else
+  echo "* Skip sql import cause it was not requested"
+fi
 
 echo "* Fix mailtrain layout"
 # HINT: rebuild client (with mailtrain-init) on changes
