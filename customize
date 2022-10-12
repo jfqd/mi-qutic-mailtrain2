@@ -57,8 +57,6 @@ adduser mailtrain mailtrain
 
 echo "* Extend history"
 cat >> /root/.bash_history << EOF
-systemctl restart mongod
-systemctl status mongod
 systemctl edit --full mailtrain
 systemctl daemon-reload
 systemctl restart mailtrain
