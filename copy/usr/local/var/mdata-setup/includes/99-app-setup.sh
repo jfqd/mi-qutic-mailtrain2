@@ -73,8 +73,7 @@ sed -i \
     client/src/lib/page.js
 
 sed -i \
-    -e "s|<div>{t('build').*</div>||" \
-    -e "s|<p>{mailtrainConfig.shoutout}</p>|<p>Leistungsfähiger Newsletter-Dienst für Ihre Kunden-Mailings.</p>|" \
+    -e "s|<div>{t('build').*</div>|<p>Leistungsfähiger Newsletter-Dienst für Ihre Kunden-Mailings.</p>|" \
     client/src/Home.js
 
 sed -i \
@@ -185,6 +184,10 @@ EOF
 sed -i \
     -e "s#<mj-font name=\"Lato\" href=\"https://fonts.googleapis.com/css?family=Lato:400,700,400italic\" />##" \
     server/views/subscription/layout.mjml.hbs 
+
+sed -i \
+    -e "s|<meta charset=\"utf-8\">|<meta charset=\"utf-8\"><meta name=\"robots\" content=\"noindex,nofollow,noarchive\" />|" \
+    server/views/layout.hbs
 
 echo "* Fix utf8mb4 conversion"
 sed -i \
