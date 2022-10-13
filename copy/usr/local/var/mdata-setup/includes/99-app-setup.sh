@@ -149,6 +149,10 @@ body.mailtrain .navbar-dark .navbar-nav .active > .nav-link:hover {
   background-color: #525c66;
 }
 
+table .fas {
+  color: #666;
+}
+
 a {
   color: #dd4814;
   text-decoration: none;
@@ -157,6 +161,14 @@ a {
 a:hover, a:focus {
   color: #97310e;
   text-decoration: underline;
+}
+
+.page-link {
+  color: #dd4814;
+}
+
+.page-link:hover {
+  color: #97310e;
 }
 
 code {
