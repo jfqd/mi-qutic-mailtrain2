@@ -19,6 +19,10 @@ group: mailtrain
 roUser: nobody
 roGroup: nobody
 
+enabledLanguages:
+- en-US
+- de-DE
+
 defaultLanguage: de-DE
 
 www:
