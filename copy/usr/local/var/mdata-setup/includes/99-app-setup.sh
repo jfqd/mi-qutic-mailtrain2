@@ -123,7 +123,7 @@ body.mailtrain .navbar-dark .navbar-nav .active > .nav-link:hover {
   text-decoration: underline
 }
 
-breadcrumb-item.active {
+.breadcrumb-item.active {
   color: #444;
 }
 
@@ -139,12 +139,12 @@ breadcrumb-item.active {
   border-color: #292e33;
 }
 
-link.active, 
+.link.active, 
 .nav-pills .show > .nav-link {
   background-color: #525c66;
 }
 
-nav-pills .nav-link.active, 
+.nav-pills .nav-link.active, 
 .nav-pills .show > .nav-link {
   background-color: #525c66;
 }
