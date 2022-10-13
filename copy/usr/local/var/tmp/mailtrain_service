@@ -3,6 +3,8 @@ Description=Mailtrain server
 After=syslog.target network.target redis-service.service mongod.service
 
 [Service]
+User=mailtrain
+Group=mailtrain
 Environment="NODE_ENV=production"
 WorkingDirectory=/var/www/mailtrain/server
 ExecStart=/usr/bin/node index.js
