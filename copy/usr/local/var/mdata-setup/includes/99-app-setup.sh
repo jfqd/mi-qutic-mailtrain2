@@ -211,6 +211,10 @@ sed -i \
     -e "s|].table_name|].TABLE_NAME|" \
     server/setup/knex/migrations/20200824160149_convert_to_utf8mb4.js
 
+echo "* Fix v1 to v2 sql-migration"
+mv server/setup/knex/migrations/20170506102634_v1_to_v2.js server/setup/knex/migrations/20170506102634_v1_to_v2.js.bak
+cp /usr/local/var/tmp/20170506102634_v1_to_v2.js server/setup/knex/migrations/20170506102634_v1_to_v2.js
+
 echo "* Install node modules and build client"
 chown -R mailtrain:mailtrain .
 sudo -u mailtrain /usr/local/bin/mailtrain-init || true
