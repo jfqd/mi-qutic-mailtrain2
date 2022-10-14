@@ -223,6 +223,12 @@ sed -i \
     -e "s|].table_name|].TABLE_NAME|" \
     server/setup/knex/migrations/20200824160149_convert_to_utf8mb4.js
 
+echo "* Fix timeout issue with image-delivery out of the cache"
+# https://github.com/Mailtrain-org/mailtrain/issues/1159
+sed -i \
+    -e "s/setTimeout(callback, 5000);/setTimeout(callback, 250);/" \
+    server/lib/file-cache.js
+
 echo "* Fix v1 to v2 sql-migration"
 mv server/setup/knex/migrations/20170506102634_v1_to_v2.js server/setup/knex/migrations/20170506102634_v1_to_v2.js.bak
 cp /usr/local/var/tmp/20170506102634_v1_to_v2.js server/setup/knex/migrations/20170506102634_v1_to_v2.js
