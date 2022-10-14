@@ -1,5 +1,11 @@
 # Changelog
 
+## 20210413.3
+
+* fix image load timeout issue
+* add hint for v1 migration path
+* more scss changes
+
 ## 20210413.2
 
 * fix systemd service
