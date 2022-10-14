@@ -73,6 +73,10 @@ server {
   ssl_certificate_key  /etc/nginx/ssl/mailtrain.key;
   ssl_protocols        TLSv1.1 TLSv1.2;
   client_max_body_size 25M;
+  # v1 image path, uncomment if migration from v1 to v2
+  # location /mosaico/uploads/static {
+  #   alias /var/www/mailtrain/client/static/mosaico/uploads/static/;
+  # }
   location / {
     proxy_pass http://public;
     proxy_http_version 1.1;
