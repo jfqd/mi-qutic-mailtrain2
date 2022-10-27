@@ -78,7 +78,7 @@ chmod 0400 /root/.my.cnf
 
 if [[ "${MYSQL_INIT}" = "true" ]]; then
   echo "* Import basic sql cause mailtrain has issues with its own sql-files (on mysql 8)"
-  /usr/bin/mysql --database="${MYSQL_DB}" --defaults-file=/root/.my.cnf < /usr/local/var/tmp/mailtrain.sql
+  /usr/bin/mysql --database="${MYSQL_DB}" < /usr/local/var/tmp/mailtrain.sql
 else
   echo "* Skip sql import cause it was not requested"
 fi
