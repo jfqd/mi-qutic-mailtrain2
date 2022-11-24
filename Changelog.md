@@ -1,5 +1,9 @@
 # Changelog
 
+## 20210413.5 - 2022-11-24
+
+* add admin email address to database
+
 ## 20210413.4 - 2022-10-22
 
 * build on latest base image
