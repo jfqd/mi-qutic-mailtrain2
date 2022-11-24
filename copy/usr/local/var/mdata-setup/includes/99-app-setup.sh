@@ -7,6 +7,7 @@ MYSQL_USER=$(/native/usr/sbin/mdata-get mysql_user)
 MYSQL_DB=$(/native/usr/sbin/mdata-get mysql_db)
 MYSQL_PWD=$(/native/usr/sbin/mdata-get mysql_password)
 SECRET=$(pwgen -1 128)
+ADMIN_EMAIL=$(/native/usr/sbin/mdata-get admin_email)
 
 echo "* Setup installation configuration"
 cd /var/www/mailtrain
@@ -79,6 +80,7 @@ chmod 0400 /root/.my.cnf
 if [[ "${MYSQL_INIT}" = "true" ]]; then
   echo "* Import basic sql cause mailtrain has issues with its own sql-files (on mysql 8)"
   /usr/bin/mysql --database="${MYSQL_DB}" < /usr/local/var/tmp/mailtrain.sql
+  /usr/bin/mysql --database="${MYSQL_DB}" -e "UPDATE users SET email=\"${ADMIN_EMAIL}\" WHERE id=1;"
 else
   echo "* Skip sql import cause it was not requested"
 fi
