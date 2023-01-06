@@ -57,6 +57,8 @@ adduser mailtrain mailtrain
 
 echo "* Extend history"
 cat >> /root/.bash_history << EOF
+vim /var/www/mailtrain/server/services/workers/reports/config/production.yaml
+vim /var/www/mailtrain/server/config/production.yaml
 systemctl edit --full mailtrain
 systemctl daemon-reload
 systemctl restart mailtrain
