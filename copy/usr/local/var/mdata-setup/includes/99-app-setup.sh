@@ -14,7 +14,7 @@ cd /var/www/mailtrain
 
 IFS=. read -r sub domain tld <<< "${HOSTNAME}"
 
-cat > server/config/production.yaml <<EOT
+cat > /var/www/mailtrain/server/config/production.yaml <<EOT
 user: mailtrain
 group: mailtrain
 roUser: nobody
@@ -55,8 +55,9 @@ builtinZoneMTA:
 queue:
   processes: 2
 EOT
+chmod 0640 /var/www/mailtrain/server/config/production.yaml
     
-cat > server/services/workers/reports/config/production.yaml <<EOT
+cat > /var/www/mailtrain/server/services/workers/reports/config/production.yaml <<EOT
 log:
   level: warn
   
@@ -68,6 +69,7 @@ mysql:
   database: "${MYSQL_DB}"
   password: "${MYSQL_PWD}"
 EOT
+chmod 0640 /var/www/mailtrain/server/services/workers/reports/config/production.yaml
 
 cat > /root/.my.cnf <<EOF
 [client]
