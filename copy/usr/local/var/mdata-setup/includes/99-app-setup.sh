@@ -229,8 +229,10 @@ sed -i \
 
 echo "* Fix timeout issue with image-delivery out of the cache"
 # https://github.com/Mailtrain-org/mailtrain/issues/1159
+# https://github.com/Mailtrain-org/mailtrain/pull/1309
 sed -i \
-    -e "s/setTimeout(callback, 5000);/setTimeout(callback, 250);/" \
+    -e "s/setTimeout(callback, 5000);/setTimeout(callback, 0);/" \
+    -e "s/knex('file_cache').where('type', typeId).where('key', key).del().then(()=> callback());/callback();/" \
     server/lib/file-cache.js
 
 echo "* Fix v1 to v2 sql-migration"
