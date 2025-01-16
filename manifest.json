@@ -1,11 +1,11 @@
 {
   "name":         "qutic-mailtrain2",
-  "version":      "20210413.5",
+  "version":      "20231121.1",
   "description":  "qutic mailtrain v2 image",
   "organization": "qutic development",
   "brand":        "Instance",
   "homepage":     "https://github.com/jfqd/mi-qutic-mailtrain2",
-  "base":         "08a21bc0-5206-11ed-a485-9f8bf0f16829",
+  "base":         "5459aaee-3844-11ef-a0d0-7fcf2b2df920",
   "customer_metadata": {
     "admin_authorized_keys": {"type": "text", "description": "SSH public authorized key(s) for the admin user"},
     "root_authorized_keys":  {"type": "text", "description": "SSH public authorized key(s) for the root user"},

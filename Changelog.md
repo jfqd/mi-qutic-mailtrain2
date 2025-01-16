@@ -1,5 +1,10 @@
 # Changelog
 
+## 20231121.1- 2025-01-16
+
+* move to ubuntu 22.04
+* add admin pwd to database
+
 ## 20210413.5 - 2022-11-24
 
 * add admin email address to database
