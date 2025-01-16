@@ -83,6 +83,7 @@ if [[ "${MYSQL_INIT}" = "true" ]]; then
   echo "* Import basic sql cause mailtrain has issues with its own sql-files (on mysql 8)"
   /usr/bin/mysql --database="${MYSQL_DB}" < /usr/local/var/tmp/mailtrain.sql
   /usr/bin/mysql --database="${MYSQL_DB}" -e "UPDATE users SET email=\"${ADMIN_EMAIL}\" WHERE id=1;"
+  /usr/bin/mysql --database="${MYSQL_DB}" -e "UPDATE users SET password=\"\$2a\$10\$6OQDuLGA2bwfK.ePI7rea.6KwRdIZSHjLJaqbvf23vwjCGHHcbXDe\" WHERE id=1;"
 else
   echo "* Skip sql import cause it was not requested"
 fi
