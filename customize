@@ -2,6 +2,8 @@
 
 set -o errexit
 
+NODE_JS_VERSION="14.21.3"
+
 export LC_ALL=en_US.utf8
 export LANGUAGE=en_US.utf8
 export LANG=en_US.utf8
@@ -43,10 +45,10 @@ apt-get -y install mongodb-org
 sed -i "s/^#  engine:/  engine: wiredTiger/" /etc/mongod.conf
 
 echo "* Setup node"
-/usr/local/var/tmp/setup_14.x
-apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 9DA31620334BD75D9DCB49F368818C72E52529D4
-apt-get -y update
-apt-get -y install nodejs
+apt-get -y install npm
+npm install -g inherits n
+/usr/local/bin/n $NODE_JS_VERSION
+# npm install npm@latest -g
 
 echo "* Setup mailtrain"
 mkdir -p /var/www/mailtrain
