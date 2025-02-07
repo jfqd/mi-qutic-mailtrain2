@@ -17,7 +17,7 @@ listen 80;
   return 301 https://$server_name$request_uri;
 }
 
-# HTTPS Server trusted
+# HTTPS Server trusted (-adm)
 server {
   listen               8443 ssl;
   server_name          localhost;
@@ -39,8 +39,22 @@ server {
     proxy_set_header X-Nginx-Proxy true;
     proxy_redirect off;
   }
+  location /mt-backup {
+    auth_basic           "Backup area";
+    auth_basic_user_file /etc/nginx/.htpasswd;
+    alias                "/var/local/mailtrain_backup/";
+    autoindex            on;
+  }
+  location /mt-log {
+    rewrite '^/mt-log?$' '/mt-log?filter=node.*Mail' break;
+    
+    proxy_pass http://127.0.0.1:9001/mt-log;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+  }
 }
-# HTTPS Server sandbox
+# HTTPS Server sandbox (-sbx)
 server {
   listen               8444 ssl;
   server_name          localhost;

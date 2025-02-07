@@ -50,7 +50,7 @@ npm install -g inherits n
 /usr/local/bin/n $NODE_JS_VERSION
 # npm install npm@latest -g
 
-echo "* Setup mailtrain"
+echo "* Install mailtrain"
 mkdir -p /var/www/mailtrain
 addgroup mailtrain
 adduser --disabled-password --system --quiet --home /var/www/mailtrain --shell /bin/bash mailtrain
@@ -61,6 +61,9 @@ adduser mailtrain mailtrain
   git checkout v2
   chown -R mailtrain:mailtrain .
 )
+
+echo "* Install frontail"
+npm i frontail -g
 
 echo "* Extend history"
 cat >> /root/.bash_history << EOF

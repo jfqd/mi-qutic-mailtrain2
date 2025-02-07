@@ -247,9 +247,24 @@ sudo -u mailtrain /usr/local/bin/mailtrain-init || true
 chown -R mailtrain:mailtrain .
 chmod o-rwx server/config
 
-echo "* Start mailtrain service and dependencies"
+echo "* Create http-basic password for log and backup area"
+if [[ ! -f /etc/nginx/.htpasswd ]]; then
+  if /native/usr/sbin/mdata-get mailtrain_backend_pwd 1>/dev/null 2>&1; then
+    MT_PWD=$(/native/usr/sbin/mdata-get mailtrain_backend_pwd)
+    echo "${MT_PWD}" | htpasswd -c -i /etc/nginx/.htpasswd "mt-backend"
+    # not a good idea, but frontail has its own htpasswd-code...
+    # which is not compatible with nginx one
+    sed -i -e "s/secure-pwd/${MT_PWD}/" /usr/local/var/tmp/frontail_service
+    chmod 0640 /etc/nginx/.htpasswd
+    chown root:www-data /etc/nginx/.htpasswd
+  fi
+fi
+mkdir -p /var/local/mailtrain_backup
+
+echo "* Start mailtrain and frontail service with dependencies"
 mv /usr/local/var/tmp/mailtrain_service /etc/systemd/system/mailtrain.service || true
 mv /usr/local/var/tmp/nginx_service /lib/systemd/system/nginx.service || true
+mv /usr/local/var/tmp/frontail_service /etc/systemd/system/frontail.service || true
 systemctl daemon-reload
 
 systemctl restart nginx
@@ -264,6 +279,9 @@ systemctl enable redis-server
 
 systemctl start mailtrain
 systemctl enable mailtrain
+
+systemctl start frontail
+systemctl enable frontail
 
 echo "* Cleanup"
 # apt-get -y purge git make gcc g++ build-essential

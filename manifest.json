@@ -25,6 +25,7 @@
     "zabbix_psk":            {"type": "text", "description": "zabbix PSK"},
     "vfstab":                {"type": "text", "description": "nfs mountpoint for vfstab-file"},
     "mailtrain_host":        {"type": "text", "description": "mailtrain host"},
+    "mailtrain_backend_pwd": {"type": "text", "description": "password of the backend area for backup and logs"},
     "admin_email":           {"type": "text", "description": "email address of the admin user"},
     "mysql_init":            {"type": "text", "description": "set to true if you want to initialize the database"},
     "mysql_host":            {"type": "text", "description": "mysql host"},

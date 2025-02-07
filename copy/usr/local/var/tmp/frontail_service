@@ -1,0 +1,16 @@
+[Unit]
+Description=frontail syslog
+After=syslog.target network.target
+
+[Service]
+User=mailtrain
+Group=mailtrain
+Environment=""
+WorkingDirectory=/var/www/mailtrain
+ExecStart=/usr/bin/frontail --disable-usage-stats --ui-hide-topbar --url-path /mt-log --number 25 --user mt-backend --password "secure-pwd" --host 127.0.0.1 /var/log/syslog
+Type=simple
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

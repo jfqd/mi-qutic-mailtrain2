@@ -16,3 +16,4 @@ wget
 git
 unzip
 jq
+apache2-utils
