@@ -1,5 +1,9 @@
 # Changelog
 
+## 20231121.2- 2025-02-07
+
+* add frontail-service
+
 ## 20231121.1- 2025-01-16
 
 * move to ubuntu 22.04

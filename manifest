@@ -1,7 +1,7 @@
 name="qutic-mailtrain2"
 organization="qutic development"
 brand="Instance"
-version="20231121.1"
+version="20231121.2"
 description="qutic mailtrain v2 image"
 homepage="https://github.com/jfqd/mi-qutic-mailtrain2"
 users="root admin"
