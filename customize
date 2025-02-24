@@ -65,6 +65,9 @@ adduser mailtrain mailtrain
 echo "* Install frontail"
 npm i frontail -g
 
+echo "* Let frontail read syslog"
+usermod -a -G adm mailtrain
+
 echo "* Extend history"
 cat >> /root/.bash_history << EOF
 vim /var/www/mailtrain/server/services/workers/reports/config/production.yaml
