@@ -81,9 +81,7 @@ chmod 0400 /root/.my.cnf
 
 if [[ "${MYSQL_INIT}" = "true" ]]; then
   echo "* Import basic sql cause mailtrain has issues with its own sql-files (on mysql 8)"
-  /usr/bin/mysql --database="${MYSQL_DB}" < /usr/local/var/tmp/mailtrain.sql
-  /usr/bin/mysql --database="${MYSQL_DB}" -e "UPDATE users SET email=\"${ADMIN_EMAIL}\" WHERE id=1;"
-  /usr/bin/mysql --database="${MYSQL_DB}" -e "UPDATE users SET password=\"\$2a\$10\$6OQDuLGA2bwfK.ePI7rea.6KwRdIZSHjLJaqbvf23vwjCGHHcbXDe\" WHERE id=1;"
+  /usr/bin/mysql --defaults-file=/root/.my.cnf --database="${MYSQL_DB}" < /usr/local/var/tmp/mailtrain.sql
 else
   echo "* Skip sql import cause it was not requested"
 fi
@@ -282,6 +280,13 @@ systemctl enable mailtrain
 
 systemctl start frontail
 systemctl enable frontail
+
+echo "* Wait while mailtrain is migrating the database"
+sleep 60
+
+echo "* Update email and password of new mailtrain user"
+/usr/bin/mysql --defaults-file=/root/.my.cnf --database="${MYSQL_DB}" -e "UPDATE users SET email=\"${ADMIN_EMAIL}\" WHERE id=1;"
+/usr/bin/mysql --defaults-file=/root/.my.cnf --database="${MYSQL_DB}" -e "UPDATE users SET password=\"\$2a\$10\$6OQDuLGA2bwfK.ePI7rea.6KwRdIZSHjLJaqbvf23vwjCGHHcbXDe\" WHERE id=1;"
 
 echo "* Cleanup"
 # apt-get -y purge git make gcc g++ build-essential
