@@ -1,5 +1,10 @@
 # Changelog
 
+## 20231121.3- 2025-02-24
+
+* fix frontail-service
+* fix admin email addr and pwd to database
+
 ## 20231121.2- 2025-02-07
 
 * add frontail-service
