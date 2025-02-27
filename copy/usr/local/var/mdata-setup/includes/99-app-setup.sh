@@ -278,6 +278,13 @@ systemctl enable redis-server
 systemctl start mailtrain
 systemctl enable mailtrain
 
+echo "* Install frontail"
+npm i frontail -g
+
+echo "* Let frontail read syslog"
+usermod -a -G adm mailtrain
+
+echo "* Start frontail"
 systemctl start frontail
 systemctl enable frontail
 
