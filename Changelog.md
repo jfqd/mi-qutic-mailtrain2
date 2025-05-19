@@ -1,5 +1,9 @@
 # Changelog
 
+## 20231121.4- 2025-05-19
+
+* only change email and password on mysql-init
+
 ## 20231121.3- 2025-02-24
 
 * fix frontail-service
