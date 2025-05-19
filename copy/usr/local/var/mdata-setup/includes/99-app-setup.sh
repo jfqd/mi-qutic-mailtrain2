@@ -279,7 +279,7 @@ systemctl start mailtrain
 systemctl enable mailtrain
 
 echo "* Install frontail"
-npm i frontail -g
+/usr/local/bin/npm i frontail -g
 
 echo "* Let frontail read syslog"
 usermod -a -G adm mailtrain
@@ -291,9 +291,11 @@ systemctl enable frontail
 echo "* Wait while mailtrain is migrating the database"
 sleep 60
 
-echo "* Update email and password of new mailtrain user"
-/usr/bin/mysql --defaults-file=/root/.my.cnf --database="${MYSQL_DB}" -e "UPDATE users SET email=\"${ADMIN_EMAIL}\" WHERE id=1;"
-/usr/bin/mysql --defaults-file=/root/.my.cnf --database="${MYSQL_DB}" -e "UPDATE users SET password=\"\$2a\$10\$6OQDuLGA2bwfK.ePI7rea.6KwRdIZSHjLJaqbvf23vwjCGHHcbXDe\" WHERE id=1;"
+if [[ "${MYSQL_INIT}" = "true" ]]; then
+  echo "* Update email and password of new mailtrain user"
+  /usr/bin/mysql --defaults-file=/root/.my.cnf --database="${MYSQL_DB}" -e "UPDATE users SET email=\"${ADMIN_EMAIL}\" WHERE id=1;"
+  /usr/bin/mysql --defaults-file=/root/.my.cnf --database="${MYSQL_DB}" -e "UPDATE users SET password=\"\$2a\$10\$6OQDuLGA2bwfK.ePI7rea.6KwRdIZSHjLJaqbvf23vwjCGHHcbXDe\" WHERE id=1;"
+fi
 
 echo "* Cleanup"
 # apt-get -y purge git make gcc g++ build-essential
